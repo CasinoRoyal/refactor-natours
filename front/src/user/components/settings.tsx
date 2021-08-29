@@ -4,7 +4,7 @@ import { ChangeUserData } from './change-user-data';
 import { ChangePassword } from './change-password';
 import { User } from '../types';
 
-export const Settings: FC<{user: User}> = ({ user }) => {
+export const Settings: FC<{ user: User }> = ({ user }) => {
   return (
     <main className="main">
       <div className="user-view">
@@ -14,7 +14,7 @@ export const Settings: FC<{user: User}> = ({ user }) => {
             <li className="side-nav--active">
               <a href="/nowhere">
                 <svg>
-                  <use xlinkHref='img/icons.svg#icon-settings' />
+                  <use xlinkHref="img/icons.svg#icon-settings" />
                 </svg>
                 Settings
               </a>
@@ -22,7 +22,7 @@ export const Settings: FC<{user: User}> = ({ user }) => {
             <li>
               <a href="/nowhere">
                 <svg>
-                  <use xlinkHref='img/icons.svg#icon-briefcase' />
+                  <use xlinkHref="img/icons.svg#icon-briefcase" />
                 </svg>
                 My bookings
               </a>
@@ -30,7 +30,7 @@ export const Settings: FC<{user: User}> = ({ user }) => {
             <li>
               <a href="/nowhere">
                 <svg>
-                  <use xlinkHref='img/icons.svg#icon-star' />
+                  <use xlinkHref="img/icons.svg#icon-star" />
                 </svg>
                 My reviews
               </a>
@@ -38,27 +38,27 @@ export const Settings: FC<{user: User}> = ({ user }) => {
             <li>
               <a href="/nowhere">
                 <svg>
-                  <use xlinkHref='img/icons.svg#icon-credit-card' />
+                  <use xlinkHref="img/icons.svg#icon-credit-card" />
                 </svg>
                 Billing
               </a>
-            </li>                              
+            </li>
           </ul>
         </nav>
 
         {/* Main Content */}
         <div className="user-view__content">
-          <ChangeUserData 
+          <ChangeUserData
             name={user.name}
             email={user.email}
             photo={user.photo}
           />
-          
+
           <div className="line">&nbsp;</div>
-          
+
           <ChangePassword />
         </div>
       </div>
     </main>
   );
-}
+};

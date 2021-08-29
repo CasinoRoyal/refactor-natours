@@ -7,15 +7,15 @@ import { AuthForm } from '../user/components/auth-form';
 
 export const AuthPage: FC = (): ReactElement => {
   const { data, isFetching, error } = useUser();
-  const { methodAuth } = useParams<{methodAuth: string}>();
+  const { methodAuth } = useParams<{ methodAuth: string }>();
 
   if (data) {
-    return <Redirect to='/' />
+    return <Redirect to="/" />;
   }
-  
-  const isSignup = methodAuth ==='signup' ? true : false;
 
-  if (isFetching) return <WrappedSpinner />
+  const isSignup = methodAuth === 'signup' ? true : false;
+
+  if (isFetching) return <WrappedSpinner />;
 
   return (
     <main className="main">
@@ -23,9 +23,9 @@ export const AuthPage: FC = (): ReactElement => {
         <h2 className="heading-secondary ma-bt-lg">
           {isSignup ? 'Create new account' : 'Log into your account'}
         </h2>
-        
+
         <AuthForm isSignup={isSignup} />
       </div>
     </main>
   );
-}
+};

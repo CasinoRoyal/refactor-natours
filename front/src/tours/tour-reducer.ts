@@ -10,29 +10,29 @@ import {
   FETCH_CURRENT_TOUR_START,
   FETCH_CURRENT_TOUR_SUCCESS,
   FETCH_CURRENT_TOUR_FAILURE,
-  CLEAR_CURRENT_TOUR
+  CLEAR_CURRENT_TOUR,
 } from './types';
 
 export type ToursState = {
-  data: ToursDataState,
+  data: ToursDataState;
   isFetching: boolean;
   error: boolean;
-}
+};
 
 const initialState = {
   data: {
     tours: Array<Tour>(),
-    currentTour: null
+    currentTour: null,
   },
   isFetching: false,
   error: false,
-}
+};
 
 // type TourState = typeof initialState
 
 export const tourReducer = (
-  state = initialState, 
-  action: ToursActionTypes | CurrentTourActionTypes
+  state = initialState,
+  action: ToursActionTypes | CurrentTourActionTypes,
 ): ReducerStateType<ToursDataState> => {
   switch (action.type) {
     case FETCH_TOURS_START:
@@ -40,44 +40,44 @@ export const tourReducer = (
       return {
         ...state,
         isFetching: true,
-        error: false
+        error: false,
       };
-    case FETCH_TOURS_SUCCESS: 
+    case FETCH_TOURS_SUCCESS:
       return {
         ...state,
         isFetching: false,
         error: false,
         data: {
           ...state.data,
-          tours: action.payload
-        }
+          tours: action.payload,
+        },
       };
-    case FETCH_CURRENT_TOUR_SUCCESS: 
+    case FETCH_CURRENT_TOUR_SUCCESS:
       return {
         ...state,
         isFetching: false,
         error: false,
         data: {
           ...state.data,
-          currentTour: action.payload
-        }
+          currentTour: action.payload,
+        },
       };
     case FETCH_TOURS_FAILURE:
     case FETCH_CURRENT_TOUR_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: true
-       };
+        error: true,
+      };
     case CLEAR_CURRENT_TOUR:
       return {
         ...state,
         data: {
           ...state.data,
-          currentTour: null
-        }
+          currentTour: null,
+        },
       };
     default:
       return state;
   }
-}
+};

@@ -11,11 +11,11 @@ import { NotFound } from '../shareable/ui/not-found';
 export const AppRouter: FC = (): ReactElement => {
   return (
     <Switch>
-      <Route exact path='/' component={MainPage} />
-      <Route exact path='/tour/:tourId' component={TourPage} />
-      <Route exact path='/auth/:methodAuth' component={AuthPage} />
-      <PrivateRoute exact path='/profile' component={ProfilePage} />
-      <Route path='*' component={NotFound} />
-    </Switch> 
+      <Route exact path="/" component={MainPage} />
+      <Route exact path="/tour/:tourId" component={TourPage} />
+      <Route exact path="/auth/:methodAuth" component={AuthPage} />
+      <PrivateRoute exact path="/profile" component={ProfilePage} />
+      <Route path="*" component={NotFound} />
+    </Switch>
   );
-}
+};

@@ -9,24 +9,22 @@ import { ReducerStateType } from '../../store/types';
 
 export const useToursFetch = (): ReducerStateType<Tours> => {
   const dispatch = useDispatch();
-  const { 
-    data, 
-    isFetching, 
-    error
-  } = useSelector<AppStore, ReducerStateType<Tours>>(getAllToursData);
+  const { data, isFetching, error } = useSelector<
+    AppStore,
+    ReducerStateType<Tours>
+  >(getAllToursData);
   console.log('render use TOURS');
   useEffect(() => {
-
-    if (data.length !==0) {
+    if (data.length !== 0) {
       return;
-    };
+    }
 
-    dispatch(fetchToursAsync())
+    dispatch(fetchToursAsync());
   }, [dispatch, data]);
 
   return {
-    data, 
-    isFetching, 
-    error
+    data,
+    isFetching,
+    error,
   };
 };

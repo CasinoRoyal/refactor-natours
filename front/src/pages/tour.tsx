@@ -10,11 +10,11 @@ import { Reviews } from '../tours/components/reviews';
 import { CTA } from '../tours/components/cta';
 
 import { WrappedSpinner } from '../shareable/ui/wrapper';
-import {clearCurrentTour} from '../tours/actions';
+import { clearCurrentTour } from '../tours/actions';
 
 type ParamsType = {
   tourId: string;
-}
+};
 
 export const TourPage: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -23,25 +23,24 @@ export const TourPage: FC = (): ReactElement => {
   console.log(error);
 
   useEffect((): any => {
-
-    return () => dispatch(clearCurrentTour())
+    return () => dispatch(clearCurrentTour());
   }, [dispatch]);
 
   if (isFetching || !data) {
-    return <WrappedSpinner />
+    return <WrappedSpinner />;
   }
 
   if (data) {
     return (
       <>
-        <Header 
+        <Header
           name={data.name}
           startLocation={data.startLocation}
           duration={data.duration}
           imageCover={data.imageCover}
         />
-        
-        <Description 
+
+        <Description
           description={data.description}
           name={data.name}
           difficulty={data.difficulty}
@@ -50,15 +49,15 @@ export const TourPage: FC = (): ReactElement => {
           ratingsAverage={data.ratingsAverage}
           guides={data.guides}
         />
-        
-        <Images images={data.images} name={data.name}/>
-        
-        <Reviews reviews={data.reviews}/>
-        
+
+        <Images images={data.images} name={data.name} />
+
+        <Reviews reviews={data.reviews} />
+
         <CTA images={data.images} duration={data.duration} />
       </>
-    )
+    );
   }
 
   return <div>Tour page</div>;
-}
+};

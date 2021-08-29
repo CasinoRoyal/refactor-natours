@@ -10,27 +10,26 @@ import { useNotify } from '../../shareable/hooks/use-notify';
 export const ChangePassword: FC = () => {
   const { fetch } = useFetchSubmit<ChangePasswordType>(updateUserDataAsync);
   const { getErrorNotify } = useNotify();
-  
+
   const { register, handleSubmit, errors } = useForm<ChangePasswordType>({
-    validationSchema: userChangePasswordSchema
+    validationSchema: userChangePasswordSchema,
   });
 
   useEffect(() => {
     if (errors.passwordConfirm) {
       getErrorNotify(errors);
     }
-  }, [errors, getErrorNotify])
-
+  }, [errors, getErrorNotify]);
 
   const handlerPasswordSubmit = (newData: ChangePasswordType) => {
     fetch(newData);
-  }
+  };
 
   return (
     <div className="user-view__form-container">
       <h2 className="heading-secondary ma-bt-md">Password change</h2>
-      <form 
-        className="form form-user-settings" 
+      <form
+        className="form form-user-settings"
         onSubmit={handleSubmit(handlerPasswordSubmit)}
       >
         <div className="form__group">
@@ -38,13 +37,13 @@ export const ChangePassword: FC = () => {
             Current password
           </label>
 
-          <input 
-            type="password" 
-            id="password-current" 
-            className="form__input" 
-            placeholder="••••••••" 
+          <input
+            type="password"
+            id="password-current"
+            className="form__input"
+            placeholder="••••••••"
             minLength={8}
-            name='currentPassword'
+            name="currentPassword"
             ref={register}
           />
         </div>
@@ -53,13 +52,13 @@ export const ChangePassword: FC = () => {
             New password
           </label>
 
-          <input 
-            type="password" 
-            id="password" 
-            className="form__input" 
-            placeholder="••••••••" 
+          <input
+            type="password"
+            id="password"
+            className="form__input"
+            placeholder="••••••••"
             minLength={8}
-            name='password'
+            name="password"
             ref={register}
           />
         </div>
@@ -68,22 +67,20 @@ export const ChangePassword: FC = () => {
             Confirm password
           </label>
 
-          <input 
-            type="password" 
-            id="password-confirm" 
-            className="form__input" 
-            placeholder="••••••••" 
+          <input
+            type="password"
+            id="password-confirm"
+            className="form__input"
+            placeholder="••••••••"
             minLength={8}
-            name='passwordConfirm'
+            name="passwordConfirm"
             ref={register}
           />
-        </div>                                 
+        </div>
         <div className="form__group right">
-          <button className="btn btn--small btn--green">
-            Save password
-          </button>
+          <button className="btn btn--small btn--green">Save password</button>
         </div>
       </form>
     </div>
   );
-}
+};

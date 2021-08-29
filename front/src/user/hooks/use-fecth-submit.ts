@@ -10,27 +10,26 @@ type ReturnFetchSubmitType = { fetch: (data: any) => void };
 
 export const useFetchSubmit = <D>(
   asyncAction: any,
-  methodAuth?:string
-): ReturnFetchSubmitType  => {
-
-  const [doFetch, setDoFetch] = useState<StateFetchDataType<D>>({ 
-    data: null, 
-    fetching: false 
+  methodAuth?: string,
+): ReturnFetchSubmitType => {
+  const [doFetch, setDoFetch] = useState<StateFetchDataType<D>>({
+    data: null,
+    fetching: false,
   });
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (doFetch.fetching && doFetch.data !==null) {
+    if (doFetch.fetching && doFetch.data !== null) {
       const actionsArguments: any[] = [doFetch.data];
-      
+
       if (methodAuth) actionsArguments.push(methodAuth);
 
       dispatch(asyncAction(...actionsArguments));
-      
+
       setDoFetch((prevState) => ({
         ...prevState,
-        fetching: false
+        fetching: false,
       }));
     }
   }, [doFetch, dispatch, methodAuth, asyncAction]);
@@ -39,11 +38,11 @@ export const useFetchSubmit = <D>(
     setDoFetch((prevState) => ({
       ...prevState,
       data,
-      fetching: true
+      fetching: true,
     }));
   }
 
   return {
-    fetch
+    fetch,
   };
 };

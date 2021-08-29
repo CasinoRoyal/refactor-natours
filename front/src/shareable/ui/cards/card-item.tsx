@@ -5,9 +5,11 @@ import { Tour } from '../../../tours/types';
 
 export type CardItemProps = {
   cardData: Tour;
-}
+};
 
-export const CardItem: FC<CardItemProps> = (props: CardItemProps): ReactElement => {
+export const CardItem: FC<CardItemProps> = (
+  props: CardItemProps,
+): ReactElement => {
   const {
     ratingsAverage,
     ratingsQuantity,
@@ -21,7 +23,7 @@ export const CardItem: FC<CardItemProps> = (props: CardItemProps): ReactElement 
     startLocation,
     startDates,
     locations,
-    id
+    id,
   } = props.cardData;
 
   return (
@@ -79,7 +81,9 @@ export const CardItem: FC<CardItemProps> = (props: CardItemProps): ReactElement 
           <span className="card__footer-value">{ratingsAverage} &nbsp;</span>
           <span className="card__footer-text">{`rating (${ratingsQuantity})`}</span>
         </p>
-        <Link to={`/tour/${id}`} className="btn btn--green btn--small">Details</Link>
+        <Link to={`/tour/${id}`} className="btn btn--green btn--small">
+          Details
+        </Link>
       </div>
     </div>
   );

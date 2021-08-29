@@ -7,9 +7,9 @@ import { ReducerStateType } from './types';
 type ReducersType = {
   tours: ReducerStateType<any>;
   user: ReducerStateType<any>;
-}
+};
 
 export const reducer = combineReducers<ReducersType>({
   tours,
-  user
+  user,
 });

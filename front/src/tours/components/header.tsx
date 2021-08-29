@@ -8,21 +8,16 @@ type TourHeaderType = Pick<
 >;
 
 export const Header: FC<TourHeaderType> = (props): ReactElement => {
-  const {
-    name,
-    imageCover,
-    startLocation,
-    duration
-   } = props; 
+  const { name, imageCover, startLocation, duration } = props;
 
   return (
     <section className="section-header">
       <div className="header__hero">
         <div className="header__hero-overlay">&nbsp;</div>
-        <img 
-          src={`/img/tours/${imageCover}`} 
-          alt={name} 
-          className="header__hero-img" 
+        <img
+          src={`/img/tours/${imageCover}`}
+          alt={name}
+          className="header__hero-img"
         />
       </div>
       <div className="heading-box">
@@ -32,9 +27,7 @@ export const Header: FC<TourHeaderType> = (props): ReactElement => {
             <svg className="heading-box__icon">
               <use href="img/icons.svg#icon-clock"></use>
             </svg>
-            <span className="heading-box__text">
-              {`${duration} days`}
-            </span>
+            <span className="heading-box__text">{`${duration} days`}</span>
           </div>
           <div className="heading-box__detail">
             <svg className="heading-box__icon">
@@ -48,4 +41,4 @@ export const Header: FC<TourHeaderType> = (props): ReactElement => {
       </div>
     </section>
   );
-}
+};

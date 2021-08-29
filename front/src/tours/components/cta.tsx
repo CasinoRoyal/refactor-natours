@@ -2,10 +2,14 @@ import React, { FC, ReactElement } from 'react';
 
 import { Tour } from '../types';
 
-type TourCTAPropsType = Pick<Tour, 'images' | 'duration' >;
+type TourCTAPropsType = Pick<Tour, 'images' | 'duration'>;
 
-export const CTA: FC<TourCTAPropsType> = ({images , duration}): ReactElement => {
-  const daysDurationText = duration > 1 ? `${duration} days` : `${duration} day`;
+export const CTA: FC<TourCTAPropsType> = ({
+  images,
+  duration,
+}): ReactElement => {
+  const daysDurationText =
+    duration > 1 ? `${duration} days` : `${duration} day`;
   return (
     <section className="section-cta">
       <div className="cta">
@@ -20,9 +24,11 @@ export const CTA: FC<TourCTAPropsType> = ({images , duration}): ReactElement => 
           <p className="cta__text">
             {`${daysDurationText}. 1 adventure. Infinite memories. Make it yours today!`}
           </p>
-          <button className="btn btn--green span-all-rows">Book tour now!</button>
+          <button className="btn btn--green span-all-rows">
+            Book tour now!
+          </button>
         </div>
       </div>
-    </section>  
+    </section>
   );
-}
+};

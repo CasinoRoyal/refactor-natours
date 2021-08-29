@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 export const NavTours: FC = (): ReactElement => {
   return (
     <nav className="nav nav--tours">
-      <Link to="/" className="nav__el">All tours</Link>
+      <Link to="/" className="nav__el">
+        All tours
+      </Link>
       <form className="nav__search">
         <button className="nav__search-btn">
           <svg>
@@ -19,4 +21,4 @@ export const NavTours: FC = (): ReactElement => {
       </form>
     </nav>
   );
-}
+};

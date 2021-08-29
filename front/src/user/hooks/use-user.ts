@@ -9,11 +9,10 @@ import { AppStore } from '../../store/store';
 
 export const useUser = (): ReducerStateType<UserData> => {
   const dispatch = useDispatch();
-  const {
-    data,
-    isFetching,
-    error
-  } = useSelector<AppStore, ReducerStateType<UserData>>(selectUserData);
+  const { data, isFetching, error } = useSelector<
+    AppStore,
+    ReducerStateType<UserData>
+  >(selectUserData);
 
   useEffect(() => {
     if (data) return;
@@ -22,4 +21,4 @@ export const useUser = (): ReducerStateType<UserData> => {
   }, [dispatch, data]);
 
   return { data, isFetching, error };
-}
+};

@@ -7,28 +7,26 @@ const instance: AxiosInstance = axios.create({
   withCredentials: true,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
 export type RequestOptionsType = {
-  method: string,
-  endPoint: string,
-  data?: object,
-  config?: object
-}
+  method: string;
+  endPoint: string;
+  data?: object;
+  config?: object;
+};
 
 export type httpResponseType<T> = {
-  data: AxiosResponse<T>
-}
+  data: AxiosResponse<T>;
+};
 
 export interface IHttp {
-  request: <T>(options: RequestOptionsType) => Promise<T>
+  request: <T>(options: RequestOptionsType) => Promise<T>;
 }
 
-
 class Http implements IHttp {
-  
   async request<T>(options: RequestOptionsType): Promise<T> {
     const { method, endPoint } = options;
 
@@ -40,23 +38,22 @@ class Http implements IHttp {
           res = await instance.get(`/${endPoint}`);
           break;
         case 'POST':
-          res = await instance.post(`/${endPoint}`, options.data)
+          res = await instance.post(`/${endPoint}`, options.data);
           break;
         case 'PATCH':
-          res = await instance.patch(`/${endPoint}`, options.data)
+          res = await instance.patch(`/${endPoint}`, options.data);
           break;
         case 'DELETE':
-          res = await instance.delete(`/${endPoint}`)
+          res = await instance.delete(`/${endPoint}`);
           break;
         default:
           throw new Error('This method not exist');
       }
 
-      return res.data.data;    
-
-    } catch(err) {
-        throw err;
-    }  
+      return res.data.data;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
