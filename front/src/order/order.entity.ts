@@ -5,4 +5,8 @@ export class Order {
     private readonly _numberOfParticipants: number,
     private readonly _totalPrice: number,
   ){}
+
+  get totalPrice(): number {
+    return this._totalPrice
+  }
 }
