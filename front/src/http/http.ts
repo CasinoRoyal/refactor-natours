@@ -6,7 +6,6 @@ export type Options<B> = {
 };
 
 export interface Http {
-  getResourse<T>(url: string): Promise<T>;
-  pushResourse(): void
-  //pushResourse<T, B>(url: string, options: Options<B>): Promise<T>;
+  getResourse<T>(endPoint: string): Promise<T>;
+  pushResourse<T, B>(endPoint: string, options: Options<B>): Promise<T>;
 }
