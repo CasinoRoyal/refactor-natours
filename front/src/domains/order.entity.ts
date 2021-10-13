@@ -1,3 +1,5 @@
+import {t} from '../tour/tour.entity';
+
 export class Order {
   constructor(
     private readonly _userId: string,

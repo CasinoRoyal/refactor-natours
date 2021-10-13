@@ -1,9 +1,10 @@
 import { Tour } from '../tour/tour.entity';
 import { User } from '../user/user.entity';
 import { Order } from '../order/order.entity';
-import { PaymentServiceAdapter } from '../payment/payment.adapter';
+import { usePaymentService } from '../payment/payment.adapter';
 
 export function useOrder() {
+  const { pay } = usePaymentService();
   
   async function createOrder(
     user: User,
@@ -23,8 +24,8 @@ export function useOrder() {
     const order = new Order(user, tour, numberOfParticipants, totalPrice);
 
     try{
-      await PaymentServiceAdapter.pay(order.totalPrice)
-    } catch() {
+      await pay(order.totalPrice)
+    } catch(e) {
       throw new Error('Your payment was rejected')
     }
 

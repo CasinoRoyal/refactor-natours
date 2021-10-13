@@ -1,9 +1,11 @@
+export type TourId = string;
 export type TourTitle = string;
 export type Difficulty = 'easy' | 'medium' | 'difficult';
 export type Location = [number, number];
 
 export class Tour {
   constructor(
+    private readonly _tourId: TourId,
     private readonly _tourTitle: TourTitle,
     private readonly _describeTour: string,
     private readonly _price: number,
@@ -14,6 +16,10 @@ export class Tour {
     private readonly _location: Location,
     private readonly _rating: Rating,
   ) {}
+
+  get id() {
+    return this._tourId;
+  }
 
   get price() {
     return this._price;
