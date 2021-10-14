@@ -1,27 +1,17 @@
 import { http } from '../http/http.adapter';
-import { PaymentService } from './payment.port';
-
-// TODO NOTIFICATION
-
-// export class PaymentServiceAdapter implements PaymentService {
-//   async pay(amount: number): Promise<boolean> {
-//     const res = await http
-//       .pushResourse(url, amount)
-//       .catch(() => false);
-
-//     return res
-//   }
-// }
-
+import { PaymentService } from '../../application/ports/payment.port';
 
 export const usePaymentService = (): PaymentService => {
+  const url = `${baseUrl}/webhook-checkout`;
+
   return {
     async pay(totalPrice: number): Promise<boolean> {
-      const res = await http
-        .pushResourse(url, totalPrice)
-        .catch(() => false);
-
-      return res
+      try {
+        await http.post(url, totalPrice).catch(() => false);
+        return true;
+      } catch(e) {
+        throw new Error('Payment service error')
+      }
     }
-  }
-}
+  };
+};
