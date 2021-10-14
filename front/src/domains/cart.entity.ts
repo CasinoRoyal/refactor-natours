@@ -1,21 +1,24 @@
-import { Tour, TourId } from '../tour/tour.entity';
+import {Tour} from './tour.entity';
+
+export type CartItem = Tour;
+type CartItems = CartItem[];
 
 export class Cart {
-  private _items: Tour[] = [];
+  constructor(private readonly _items: CartItems = []) {}
 
-  getCart(): Tour[] {
+  getCart() {
     return this._items;
   }
 
-  addToCart(tours: Tour[]): Tour[] {
-    return [...this._items, ...tours];
+  addToCart(items: CartItems) {
+    return new Cart([...this._items, ...items]);
   }
 
-  removeFromCart(tourId: TourId): Tour[] {
-    return this._items.filter(({ id }) => id !== tourId);
+  removeFromCart(itemId: string) {
+    return this._items.filter(({ id }) => id !== itemId);
   }
 
-  clearCart(): void {
-    this._items = [];
+  clearCart(): Cart {
+    return new Cart([])
   }
 }
