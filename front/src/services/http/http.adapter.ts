@@ -43,11 +43,13 @@ class HttpAdapter implements Http {
     try {
       const response = await this._http.delete(`${endPoint}`);
 
-      return (response.status === 200);
+      return response.status === 200;
     } catch (e) {
       throw new Error('Something went wrong');
     }
   }
 }
 
-export const http = new HttpAdapter('http://localhost:3000/');
+const tempBaseUrl = 'http://localhost:3001/api/v1';
+
+export const http = new HttpAdapter(tempBaseUrl);
