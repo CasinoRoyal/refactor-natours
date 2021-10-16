@@ -1,30 +1,30 @@
-import {Tour} from './tour.entity';
+import { Tour } from './tour.entity';
 
 export type CartItem = Tour;
 type CartItems = CartItem[];
 
 export class Cart {
-  constructor(private readonly _items: CartItems = []) {}
+  constructor(readonly items: CartItems = []) {}
 
   getCart() {
-    return this._items;
+    return this.items;
   }
 
   addToCart(items: CartItems): Cart {
-    return new Cart([...this._items, ...items]);
+    return new Cart([...this.items, ...items]);
   }
 
   removeFromCart(itemId: string): CartItems {
-    return this._items.filter(({ id }) => id !== itemId);
+    return this.items.filter(({ id }) => id !== itemId);
   }
 
   clearCart(): Cart {
-    return new Cart([])
+    return new Cart([]);
   }
 
   contains(itemId: string): boolean {
-    const result = this._items.find(({ id }) => id === itemId);
+    const result = this.items.find(({ id }) => id === itemId);
 
-    return !!result;
+    return !result;
   }
 }
