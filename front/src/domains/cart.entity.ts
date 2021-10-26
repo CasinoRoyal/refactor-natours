@@ -1,12 +1,12 @@
 import { Tour } from './tour.entity';
 
 export type CartItem = Tour;
-type CartItems = CartItem[];
+export type CartItems = CartItem[];
 
 export class Cart {
   constructor(readonly items: CartItems = []) {}
 
-  getCart() {
+  getItems() {
     return this.items;
   }
 
@@ -14,8 +14,9 @@ export class Cart {
     return new Cart([...this.items, ...items]);
   }
 
-  removeFromCart(itemId: string): CartItems {
-    return this.items.filter(({ id }) => id !== itemId);
+  removeFromCart(itemId: string): Cart {
+    const filtredItems = this.items.filter(({ id }) => id !== itemId);
+    return new Cart(filtredItems);
   }
 
   clearCart(): Cart {
