@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { Http, HttpResponse } from './http';
+import { Http, HttpResponse } from '../../application/ports/in/http.port';
 
 class HttpAdapter implements Http {
   private readonly _http: AxiosInstance;

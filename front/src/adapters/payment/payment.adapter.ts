@@ -1,7 +1,7 @@
 import { http } from '../http/http.adapter';
-import { PaymentService } from '../../application/ports/payment.port';
+import { IPayment } from '../../application/ports/out/payment.port';
 
-export const usePaymentService = (): PaymentService => {
+export const usePaymentService = (): IPayment => {
   const url = `/webhook-checkout`;
 
   return {
