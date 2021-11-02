@@ -1,5 +1,30 @@
 import { User } from './user.entity';
 
+export type TourId = string;
+export type TourTitle = string;
+type Difficulty = 'easy' | 'medium' | 'difficult';
+
+type Location = {
+  type: string;
+  description: string;
+  coordinates: number[];
+  address: string;
+};
+
+export type Review = {
+  createdAt: number;
+  id: number;
+  rating: number;
+  review: string;
+  tour: number;
+  user: {
+    name: string;
+    photo: string;
+  };
+};
+
+export type CardTour = Omit<Tour, 'reviews'>;
+
 export interface ITour {
   readonly id: TourId;
   readonly startLocation: Location;
@@ -56,28 +81,3 @@ export class Tour implements ITour {
     return this.price * numberOfParticipants;
   }*/
 }
-
-export type TourId = string;
-export type TourTitle = string;
-type Difficulty = 'easy' | 'medium' | 'difficult';
-
-type Location = {
-  type: string;
-  description: string;
-  coordinates: number[];
-  address: string;
-};
-
-export type Review = {
-  createdAt: number;
-  id: number;
-  rating: number;
-  review: string;
-  tour: number;
-  user: {
-    name: string;
-    photo: string;
-  };
-};
-
-export type CardTour = Omit<Tour, 'reviews'>;

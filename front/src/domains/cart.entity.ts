@@ -6,7 +6,7 @@ export type CartItems = CartItem[];
 export class Cart {
   constructor(readonly items: CartItems = []) {}
 
-  getItems() {
+  getItems(): CartItems {
     return this.items;
   }
 
