@@ -1,10 +1,11 @@
 import { TourId, Tour } from '../../domains/tour.entity';
 import { TourUseCase } from '../ports/in/tour-use-case.port';
-import { ITourStorage, ErrorMessage } from '../ports/out/tour-storage.port';
-import { useTourStorage } from '../../adapters/store/tour-storage.adapter';
+import { TourStorage } from '../ports/out/tour-storage.port';
+import { useTourStorage } from '../../adapters/storage/tour-storage.adapter';
+import { ErrorMessage } from '../../shared-kernel/types';
 
 export function useTourService(): TourUseCase {
-  const storage: ITourStorage = useTourStorage();
+  const storage: TourStorage = useTourStorage();
 
   async function getAllTours(): Promise<Tour[] | ErrorMessage> {
     const tours = await storage.selectAll();
