@@ -1,6 +1,5 @@
 import { Tour, TourId } from '../../../domains/tour.entity';
-
-export type ErrorMessage = string;
+import { ErrorMessage } from '../../../shared-kernel/types';
 
 export type TourStorageState = {
   tours: Tour[];
@@ -12,7 +11,7 @@ export type TourStorageState = {
 export type CurrentTourState = Omit<TourStorageState, 'tours'>;
 export type ToursState = Omit<TourStorageState, 'currentTour'>;
 
-export interface ITourStorage {
+export interface TourStorage {
   selectAll(): Promise<Tour[] | ErrorMessage>;
   selectOne(tourId: TourId): Promise<Tour | ErrorMessage>;
 }
