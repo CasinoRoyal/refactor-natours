@@ -1,10 +1,6 @@
 import { useEffect } from 'react';
-import {
-  useAppSelector,
-  useAppDispatch,
-  selectTours,
-} from '../../adapters/store/store';
-import { fetchTours } from '../../adapters/store/tours.reducer';
+import { useAppSelector, useAppDispatch, selectTours } from '../store/store';
+import { fetchTours } from '../store/tours.reducer';
 import { TourStorageState } from '../../application/ports/out/tour-storage.port';
 
 export function useTours(): TourStorageState {

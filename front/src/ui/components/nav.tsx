@@ -5,6 +5,9 @@ export function Nav(): ReactElement {
   return (
     <nav className="nav nav--tours">
       <Link to="/" className="nav__el">
+        Home
+      </Link>
+      <Link to="/tour/all-tours" className="nav__el">
         All tours
       </Link>
       <form className="nav__search">

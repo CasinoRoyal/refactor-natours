@@ -1,23 +1,29 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import { User } from '../../domains/user.entity';
 
-const user = {
-  photo: 'photo',
-  name: 'name',
+type UserState = {
+  user: User;
+  isAuth: boolean;
 };
 
 export function UserBar(): ReactElement {
-  const renderTemplate = user ? (
+  const userState: UserState = {
+    user: {} as User,
+    isAuth: false,
+  };
+
+  const renderTemplate = userState.isAuth ? (
     <>
       <button className="nav__el nav__el--logout">Logout</button>
 
       <Link to="/profile" className="nav__el">
         <img
-          src={`img/users/${user.photo}`}
+          src={`img/users/${userState.user.photo}`}
           alt="User"
           className="nav__user-img"
         />
-        <span>{user.name}</span>
+        <span>{userState.user.name}</span>
       </Link>
     </>
   ) : (
@@ -33,5 +39,3 @@ export function UserBar(): ReactElement {
 
   return <nav className="nav nav--user">{renderTemplate}</nav>;
 }
-
-// <Link to="/booking" className="nav__el">My bookings</Link>
