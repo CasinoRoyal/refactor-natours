@@ -1,25 +1,6 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../elements/button';
 import { Tour } from '../../domains/tour.entity';
-
-// export type CardItemProps = {
-//   cardData: {
-//     ratingsAverage: string;
-//     ratingsQuantity: string;
-//     name: string;
-//     duration: string;
-//     maxGroupSize: string;
-//     difficulty: string;
-//     price: string;
-//     summary: string;
-//     imageCover: string;
-//     startLocation: { description: string };
-//     startDates: Date[];
-//     locations: string;
-//     id: string;
-//   };
-// };
 
 type CardProps = { cardData: Tour };
 
@@ -95,8 +76,8 @@ export function Card({ cardData }: CardProps): ReactElement {
           <span className="card__footer-value">{ratingsAverage} &nbsp;</span>
           <span className="card__footer-text">{`rating (${ratingsQuantity})`}</span>
         </p>
-        <Link to={`/tour/${id}`}>
-          <Button color="green">Details</Button>
+        <Link to={`/tour/${id}`} className="btn btn--green btn--small">
+          Details
         </Link>
       </div>
     </div>

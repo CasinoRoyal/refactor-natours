@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { Nav } from './nav';
 import { UserBar } from './user-bar';
 
@@ -8,7 +9,9 @@ export function Header(): ReactElement {
       <Nav />
 
       <div className="header__logo">
-        <img src="img/logo-white.png" alt="Natours logo" />
+        <Link to="/">
+          <img src="img/logo-white.png" alt="Natours logo" />
+        </Link>
       </div>
 
       <UserBar />
