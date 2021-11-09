@@ -4,6 +4,7 @@ import {
   User,
   AuthenticateData,
   RegistrationData,
+  ChangeUserData,
 } from '../../domains/user.entity';
 import { ErrorMessage, ServerResponse } from '../../shared-kernel/types';
 
@@ -12,16 +13,16 @@ export function useUserStorage(): UserStorage {
     data: RegistrationData,
   ): Promise<User | ErrorMessage> {
     try {
-      const response = await http.post<RegistrationData, ServerResponse<User>>(
-        'users/signup',
-        data,
-      );
+      const response = await http<
+        ServerResponse<{ user: User }>,
+        RegistrationData
+      >('users/signup', { method: 'POST', data });
 
       if (response.data.status !== 'success') {
         return response.data.message || 'server error';
       }
 
-      return response.data.data;
+      return response.data.data.user;
     } catch (err) {
       if (err instanceof Error) {
         return err.message as ErrorMessage;
@@ -34,16 +35,16 @@ export function useUserStorage(): UserStorage {
     data: AuthenticateData,
   ): Promise<User | ErrorMessage> {
     try {
-      const response = await http.post<AuthenticateData, ServerResponse<User>>(
-        `users/login`,
-        data,
-      );
+      const response = await http<
+        ServerResponse<{ user: User }>,
+        AuthenticateData
+      >(`users/login`, { method: 'POST', data });
 
       if (response.data.status !== 'success') {
         return response.data.message || 'server error';
       }
 
-      return response.data.data;
+      return response.data.data.user;
     } catch (err) {
       if (err instanceof Error) {
         return err.message as ErrorMessage;
@@ -54,13 +55,16 @@ export function useUserStorage(): UserStorage {
 
   async function checkAuth(): Promise<User | ErrorMessage> {
     try {
-      const response = await http.get<ServerResponse<User>>(`users/check-auth`);
+      const response = await http<ServerResponse<{ user: User }>>(
+        `users/check-auth`,
+        { method: 'GET' },
+      );
 
       if (response.data.status !== 'success') {
         return response.data.message || 'server error';
       }
 
-      return response.data.data;
+      return response.data.data.user;
     } catch (err) {
       if (err instanceof Error) {
         return err.message as ErrorMessage;
@@ -71,13 +75,35 @@ export function useUserStorage(): UserStorage {
 
   async function logout(): Promise<void | ErrorMessage> {
     try {
-      const response = await http.get<
+      const response = await http<
         ServerResponse<{ status: 'success' | 'error' }>
-      >(`users/logout`);
+      >(`users/logout`, { method: 'GET' });
 
       if (response.data.status !== 'success') {
         return response.data.message || 'server error';
       }
+    } catch (err) {
+      if (err instanceof Error) {
+        return err.message as ErrorMessage;
+      }
+      return 'Server Error';
+    }
+  }
+
+  async function changeUserData(
+    data: ChangeUserData,
+  ): Promise<User | ErrorMessage> {
+    try {
+      const response = await http<
+        ServerResponse<{ user: User }>,
+        ChangeUserData
+      >(`users/change-user-data`, { method: 'PATCH', data });
+
+      if (response.data.status !== 'success') {
+        return response.data.message || 'server error';
+      }
+
+      return response.data.data.user;
     } catch (err) {
       if (err instanceof Error) {
         return err.message as ErrorMessage;
@@ -91,5 +117,6 @@ export function useUserStorage(): UserStorage {
     authUser,
     logout,
     checkAuth,
+    changeUserData,
   };
 }

@@ -11,8 +11,9 @@ import {
 export function useTourStorage(): TourStorage {
   async function selectAll(): Promise<Tour[] | ErrorMessage> {
     try {
-      const response = await http.get<ServerResponse<ServerDocsType<Tour[]>>>(
+      const response = await http<ServerResponse<ServerDocsType<Tour[]>>>(
         '/tours',
+        { method: 'GET' },
       );
 
       if (response.data.status !== 'success') {
@@ -30,8 +31,9 @@ export function useTourStorage(): TourStorage {
 
   async function selectOne(tourId: TourId): Promise<Tour | ErrorMessage> {
     try {
-      const response = await http.get<ServerResponse<ServerDocType<Tour>>>(
+      const response = await http<ServerResponse<ServerDocType<Tour>>>(
         `/tours/${tourId}`,
+        { method: 'GET' },
       );
 
       if (response.data.status !== 'success') {

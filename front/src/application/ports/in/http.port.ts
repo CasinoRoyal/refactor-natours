@@ -1,9 +1,12 @@
-//type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 type HttpBody<T> = Record<string, T>;
-type HttpOptions<B> = {
-  body: HttpBody<B>;
+export type HttpOptions<T> = {
+  method: HttpMethod;
+  body?: HttpBody<T>;
   [key: string]: any;
 };
+
+export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+
 export type HttpResponse<T> = {
   data: T;
   status: number;
@@ -13,10 +16,8 @@ export type HttpResponse<T> = {
 };
 
 export interface Http {
-  get<T>(endPoint: string): Promise<HttpResponse<T>>;
-  post<Opt, TRes>(
+  http<TRes, TBody = {}>(
     endPoint: string,
-    options: HttpOptions<Opt>,
+    options: HttpOptions<TBody>,
   ): Promise<HttpResponse<TRes>>;
-  delete(endPoint: string): Promise<boolean>;
 }

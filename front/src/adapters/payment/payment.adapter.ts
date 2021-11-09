@@ -7,10 +7,14 @@ export const usePaymentService = (): IPayment => {
   return {
     async pay(totalPrice: number): Promise<boolean> {
       try {
-        await http.post(url, totalPrice).catch(() => false);
+        await http<boolean, number>(url, {
+          method: 'GET',
+          body: { totalPrice },
+        });
         return true;
       } catch (e) {
-        throw new Error('Payment service error');
+        console.log('Pay error');
+        return false;
       }
     },
   };
