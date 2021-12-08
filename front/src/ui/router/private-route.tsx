@@ -1,5 +1,6 @@
-import { ComponentType } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { ComponentType, ReactElement } from 'react';
+import { Redirect, Route, useLocation } from 'react-router-dom';
+import { useAppSelector, selectUser } from '../store/store';
 
 type PrivateRouteProps = {
   component: ComponentType;
@@ -7,12 +8,18 @@ type PrivateRouteProps = {
   exact?: boolean;
 };
 
-export function PrivateRoute({ component, path, exact }: PrivateRouteProps) {
-  const useHook = () => false;
-  const condition = useHook();
+export function PrivateRoute({
+  component,
+  path,
+  exact,
+}: PrivateRouteProps): ReactElement {
+  const { pathname } = useLocation();
+  const { data } = useAppSelector(selectUser);
 
-  if (!condition) {
-    return <Redirect to="/login" />;
+  if (!data.user) {
+    return (
+      <Redirect to={{ pathname: '/auth/login', state: { path: pathname } }} />
+    );
   }
 
   return <Route path={path} component={component} exact={exact} />;

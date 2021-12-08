@@ -38,7 +38,7 @@ export function useUserStorage(): UserStorage {
       const response = await http<
         ServerResponse<{ user: User }>,
         AuthenticateData
-      >(`users/login`, { method: 'POST', data });
+      >(`users/login`, { method: 'POST', withCredentials: true, data });
 
       if (response.data.status !== 'success') {
         return response.data.message || 'server error';
@@ -57,7 +57,7 @@ export function useUserStorage(): UserStorage {
     try {
       const response = await http<ServerResponse<{ user: User }>>(
         `users/check-auth`,
-        { method: 'GET' },
+        { method: 'GET', withCredentials: true },
       );
 
       if (response.data.status !== 'success') {

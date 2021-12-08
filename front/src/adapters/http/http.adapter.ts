@@ -12,7 +12,6 @@ function isAxiosError<T>(err: any): err is AxiosError<T> {
 function httpFactory(baseURL: string): Http {
   const instance: AxiosInstance = axios.create({
     baseURL: baseURL,
-    withCredentials: true,
   });
 
   async function http<TRes, TBody = Record<string, unknown>>(
@@ -45,4 +44,5 @@ function httpFactory(baseURL: string): Http {
 }
 
 const tempBaseUrl = 'http://localhost:3001/api/v1';
+// const tempBaseUrl = 'https://natours-adventure.herokuapp.com/api/v1';
 export const { http } = httpFactory(tempBaseUrl);

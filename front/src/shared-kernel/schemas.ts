@@ -28,7 +28,7 @@ export const loginSchema = object().shape({
 export const signupSchema = object().shape({
   email: string().email().required(),
   password: string().min(8).required(),
-  username: string().trim().required(),
+  name: string().trim().required(),
   passwordConfirm: string()
     .min(8)
     .required()

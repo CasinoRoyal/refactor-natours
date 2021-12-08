@@ -49,8 +49,28 @@ export function useTourStorage(): TourStorage {
     }
   }
 
+  async function selectMany(endPoint: string): Promise<Tour[] | ErrorMessage> {
+    try {
+      const response = await http<ServerResponse<ServerDocsType<Tour[]>>>(
+        `/${endPoint}`,
+        { method: 'GET' },
+      );
+
+      if (response.data.status !== 'success') {
+        return response.data.message || 'server error';
+      }
+
+      return response.data.data.docs;
+    } catch (err) {
+      if (err instanceof Error) {
+        return err.message as ErrorMessage;
+      }
+      return 'Server Error';
+    }
+  }
   return {
     selectAll,
     selectOne,
+    selectMany,
   };
 }

@@ -17,8 +17,16 @@ export function useTourService(): TourUseCase {
     return tour;
   }
 
+  async function getCheapestTours(
+    endPoint: string,
+  ): Promise<Tour[] | ErrorMessage> {
+    const tours = await storage.selectMany(endPoint);
+    return tours;
+  }
+
   return {
     getAllTours,
     getTour,
+    getCheapestTours,
   };
 }

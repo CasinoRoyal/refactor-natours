@@ -16,7 +16,7 @@ export type HttpResponse<T> = {
 };
 
 export interface Http {
-  http<TRes, TBody = {}>(
+  http<TRes, TBody = void>(
     endPoint: string,
     options: HttpOptions<TBody>,
   ): Promise<HttpResponse<TRes>>;

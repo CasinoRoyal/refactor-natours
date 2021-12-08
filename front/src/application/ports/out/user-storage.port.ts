@@ -2,14 +2,13 @@ import {
   User,
   RegistrationData,
   AuthenticateData,
+  ChangeUserData,
 } from '../../../domains/user.entity';
 import { ErrorMessage } from '../../../shared-kernel/types';
 
 export type UserStorageState = {
   user: User | null;
   isAuth: boolean;
-  isLoading: boolean;
-  errorMsg: ErrorMessage | null;
 };
 
 export interface UserStorage {
@@ -17,4 +16,5 @@ export interface UserStorage {
   authUser: (data: AuthenticateData) => Promise<User | ErrorMessage>;
   checkAuth: () => Promise<User | ErrorMessage>;
   logout: () => Promise<void | ErrorMessage>;
+  changeUserData: (data: ChangeUserData) => Promise<User | ErrorMessage>;
 }

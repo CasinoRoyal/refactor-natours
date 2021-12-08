@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppDispatch } from '../store/store';
+import { useAppDispatch, useAppSelector, selectUser } from '../store/store';
 import { signIn, signUp } from '../store/user.reducer';
 import { loginSchema, signupSchema } from '../../shared-kernel/schemas';
 import { RegistrationData, AuthenticateData } from '../../domains/user.entity';
@@ -10,11 +10,12 @@ import { RegistrationData, AuthenticateData } from '../../domains/user.entity';
 export type AuthFormData = {
   email: string;
   password: string;
-  username?: string;
+  name?: string;
   passwordConfirm?: string;
 };
 
 export function AuthForm(): ReactElement {
+  const { isLoading } = useAppSelector(selectUser);
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const chosenProcedure = pathname.split('/')[2];
@@ -22,10 +23,15 @@ export function AuthForm(): ReactElement {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<AuthFormData>({
     resolver: isSignup ? yupResolver(signupSchema) : yupResolver(loginSchema),
   });
+
+  useEffect(() => {
+    return () => reset();
+  }, []);
 
   /**
    * Add notifier */
@@ -33,7 +39,7 @@ export function AuthForm(): ReactElement {
   console.log(errors);
 
   async function onSubmitChange(data: RegistrationData | AuthenticateData) {
-    if ('username' in data && isSignup) {
+    if ('name' in data && isSignup) {
       await dispatch(signUp(data));
     } else {
       await dispatch(signIn(data));
@@ -44,16 +50,16 @@ export function AuthForm(): ReactElement {
     <form className="form form--login" onSubmit={handleSubmit(onSubmitChange)}>
       {isSignup && (
         <div className="form__group">
-          <label htmlFor="username" className="form__label">
-            Username
+          <label htmlFor="name" className="form__label">
+            Name
           </label>
 
           <input
-            {...register('username')}
+            {...register('name')}
             type="text"
-            id="username"
+            id="name"
             className="form__input"
-            placeholder="Username"
+            placeholder="Name"
             required
           />
         </div>
@@ -109,7 +115,7 @@ export function AuthForm(): ReactElement {
       )}
 
       <div className="form__group">
-        <button type="submit" className="btn btn--green">
+        <button disabled={isLoading} type="submit" className="btn btn--green">
           {isSignup ? 'Sign up' : 'Login'}
         </button>
       </div>

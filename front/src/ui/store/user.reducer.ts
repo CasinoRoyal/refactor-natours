@@ -1,22 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { RootState, Store } from './store';
 import { useAuthentication } from '../../application/services/authentication.service';
+import { useUser } from '../../application/services/user.service';
 import {
   User,
   AuthenticateData,
   RegistrationData,
+  ChangeUserData,
 } from '../../domains/user.entity';
 import { UserStorageState } from '../../application/ports/out/user-storage.port';
 import { ErrorMessage } from '../../shared-kernel/types';
 
-const initialState: UserStorageState = {
-  user: null,
-  isAuth: false,
-  isLoading: false,
-  errorMsg: null,
+const initialState: Store<UserStorageState> = {
+  data: {
+    user: null,
+    isAuth: false,
+  },
+  isLoading: true,
+  error: null,
 };
 
 const { checkAuth, registrate, auth, exit } = useAuthentication();
+const { changeUserData } = useUser();
 
 export const checkUser = createAsyncThunk<
   User,
@@ -38,9 +43,9 @@ export const checkUser = createAsyncThunk<
   },
   {
     condition: (_, store) => {
-      const { user } = store.getState().user;
+      const { data } = store.getState().user;
 
-      if (user) {
+      if (data.user) {
         return false;
       }
 
@@ -69,9 +74,9 @@ export const signUp = createAsyncThunk<
   },
   {
     condition: (_, store) => {
-      const { user } = store.getState().user;
+      const { data } = store.getState().user;
 
-      if (user) {
+      if (data.user) {
         return false;
       }
 
@@ -100,9 +105,9 @@ export const signIn = createAsyncThunk<
   },
   {
     condition: (_, store) => {
-      const { user } = store.getState().user;
+      const { data } = store.getState().user;
 
-      if (user) {
+      if (data.user) {
         return false;
       }
 
@@ -128,6 +133,23 @@ export const signOut = createAsyncThunk<
   return true;
 });
 
+export const updateUserData = createAsyncThunk<
+  User,
+  ChangeUserData,
+  {
+    state: RootState;
+    rejectValue: ErrorMessage;
+  }
+>('user/update-user-data', async (data, store) => {
+  const response = await changeUserData(data);
+
+  if (typeof response === 'string') {
+    return store.rejectWithValue(response);
+  }
+
+  return response;
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
@@ -139,14 +161,14 @@ const userSlice = createSlice({
       })
       .addCase(checkUser.rejected, (state, action) => {
         state.isLoading = false;
-        if (action.payload) state.errorMsg = action.payload;
-        else state.errorMsg = 'Unknown error';
+        if (action.payload) state.error = action.payload;
+        else state.error = 'Unknown error';
       })
       .addCase(checkUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuth = true;
-        state.user = action.payload;
-        state.errorMsg = null;
+        state.data.isAuth = true;
+        state.data.user = action.payload;
+        state.error = null;
       });
 
     builder
@@ -155,14 +177,14 @@ const userSlice = createSlice({
       })
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
-        if (action.payload) state.errorMsg = action.payload;
-        else state.errorMsg = 'Unknown error';
+        if (action.payload) state.error = action.payload;
+        else state.error = 'Unknown error';
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuth = true;
-        state.user = action.payload;
-        state.errorMsg = null;
+        state.data.isAuth = true;
+        state.data.user = action.payload;
+        state.error = null;
       });
 
     builder
@@ -171,14 +193,14 @@ const userSlice = createSlice({
       })
       .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false;
-        if (action.payload) state.errorMsg = action.payload;
-        else state.errorMsg = 'Unknown error';
+        if (action.payload) state.error = action.payload;
+        else state.error = 'Unknown error';
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuth = true;
-        state.user = action.payload;
-        state.errorMsg = null;
+        state.data.isAuth = true;
+        state.data.user = action.payload;
+        state.error = null;
       });
 
     builder
@@ -187,14 +209,30 @@ const userSlice = createSlice({
       })
       .addCase(signOut.rejected, (state, action) => {
         state.isLoading = false;
-        if (action.payload) state.errorMsg = action.payload;
-        else state.errorMsg = 'Unknown error';
+        if (action.payload) state.error = action.payload;
+        else state.error = 'Unknown error';
       })
       .addCase(signOut.fulfilled, (state) => {
         state.isLoading = false;
-        state.isAuth = false;
-        state.user = null;
-        state.errorMsg = null;
+        state.data.isAuth = false;
+        state.data.user = null;
+        state.error = null;
+      });
+
+    builder
+      .addCase(updateUserData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.isLoading = false;
+        if (action.payload) state.error = action.payload;
+        else state.error = 'Unknown error';
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data.isAuth = true;
+        state.data.user = action.payload;
+        state.error = null;
       });
   },
 });

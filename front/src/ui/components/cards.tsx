@@ -1,18 +1,17 @@
 import { ReactElement } from 'react';
 import { Card } from './card';
-import { useTours } from '../hooks/use-tour';
+import { Tour } from '../../domains/tour.entity';
 
-export function Cards(): ReactElement {
-  const { tours, isLoading } = useTours();
+type CardsProps<T> = {
+  cards: T[];
+};
 
-  if (isLoading || tours.length === 0) return <div>LOADING...</div>;
-
+export function Cards({ cards }: CardsProps<Tour>): ReactElement {
   return (
     <div className="card-container">
-      {tours &&
-        tours.map((tour) => {
-          return <Card key={tour.id} cardData={tour} />;
-        })}
+      {cards.map((tour) => {
+        return <Card key={tour.id} cardData={tour} />;
+      })}
     </div>
   );
 }

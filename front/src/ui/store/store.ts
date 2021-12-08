@@ -6,6 +6,13 @@ import cartReducer from './cart.reducer';
 import userReducer from './user.reducer';
 import { UserStorageState } from '../../application/ports/out/user-storage.port';
 import { TourStorageState } from '../../application/ports/out/tour-storage.port';
+import { ErrorMessage } from '../../shared-kernel/types';
+
+export type Store<T> = {
+  data: T;
+  isLoading: boolean;
+  error: ErrorMessage | null;
+};
 
 export const store = configureStore({
   reducer: {
@@ -23,5 +30,7 @@ export const dispatch = store.dispatch;
 // eslint-disable-next-line
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const selectTours = (state: RootState): TourStorageState => state.tours;
-export const selectUser = (state: RootState): UserStorageState => state.user;
+export const selectTours = (state: RootState): Store<TourStorageState> =>
+  state.tours;
+export const selectUser = (state: RootState): Store<UserStorageState> =>
+  state.user;

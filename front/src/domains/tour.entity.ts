@@ -1,4 +1,5 @@
 import { User } from './user.entity';
+import { Review } from './review.entity';
 
 export type TourId = string;
 export type TourTitle = string;
@@ -9,18 +10,6 @@ type Location = {
   description: string;
   coordinates: number[];
   address: string;
-};
-
-export type Review = {
-  createdAt: number;
-  id: number;
-  rating: number;
-  review: string;
-  tour: number;
-  user: {
-    name: string;
-    photo: string;
-  };
 };
 
 export type CardTour = Omit<Tour, 'reviews'>;
