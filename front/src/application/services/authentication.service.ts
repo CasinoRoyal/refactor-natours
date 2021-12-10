@@ -2,7 +2,6 @@ import { AuthenticationUseCase } from '../ports/in/authentication-use-case.port'
 import { UserStorage } from '../ports/out/user-storage.port';
 import { AuthenticateData, RegistrationData } from '../../domains/user.entity';
 import { useUserStorage } from '../../adapters/storage/user-storage.adapter';
-import { ErrorMessage } from '../../shared-kernel/types';
 import { User } from '../../domains/user.entity';
 
 export function useAuthentication(): AuthenticationUseCase {
@@ -18,13 +17,15 @@ export function useAuthentication(): AuthenticationUseCase {
     return response;
   }
 
-  async function exit(): Promise<void | ErrorMessage> {
-    const response = await userStorage.logout();
-
-    if (response) return response;
+  async function exit(): Promise<void> {
+    try {
+      await userStorage.logout();
+    } catch {
+      throw new Error('logout error');
+    }
   }
 
-  async function checkAuth(): Promise<User | ErrorMessage> {
+  async function checkAuth(): Promise<User> {
     const response = await userStorage.checkAuth();
     return response;
   }
