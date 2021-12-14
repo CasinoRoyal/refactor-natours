@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Card } from './card';
 import { Tour } from '../../domains/tour.entity';
+import './cards.css';
 
 type CardsProps<T> = {
   cards: T[];

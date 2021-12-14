@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 import { Welcome } from '../components/welcome';
 import { Cards } from '../components/cards';
-import { useTour } from '../hooks/use-tour';
+import { useCustomTours } from '../hooks/use-tours';
 import { Loader } from '../elements/loader';
 
 export function Home(): ReactElement {
-  const { isLoading, data } = useTour({ endPoint: 'tours/5-cheapest-tour' });
+  const { isLoading, data } = useCustomTours('tours/5-cheapest-tour');
 
   if (isLoading) return <Loader />;
 
@@ -13,7 +13,7 @@ export function Home(): ReactElement {
     <>
       <Welcome />
       <h3 className="heading-secondary ma-bt-md ma-t-md">Our bestsellers</h3>
-      <Cards cards={data.tours} />
+      {data && <Cards cards={data} />}
     </>
   );
 }

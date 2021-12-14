@@ -1,18 +1,16 @@
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppDispatch, useAppSelector, selectUser } from '../store/store';
-import { updateUserData } from '../store/user.reducer';
 import { userDataSchema } from '../../shared-kernel/schemas';
 import { shallowCompare } from '../../shared-kernel/helpers';
 import { ChangeUserData } from '../../domains/user.entity';
+import { useCheckAuth } from '../hooks/use-auth';
+import { useUserUpdate } from '../hooks/use-user';
 
 export function UpdateUserDataForm(): ReactElement {
-  const dispatch = useAppDispatch();
-  const {
-    isLoading,
-    data: { user },
-  } = useAppSelector(selectUser);
+  const { data: user } = useCheckAuth();
+  const updateUser = useUserUpdate();
+
   const {
     register,
     handleSubmit,
@@ -43,7 +41,7 @@ export function UpdateUserDataForm(): ReactElement {
       return;
     }
 
-    dispatch(updateUserData(changedData));
+    updateUser.mutate(changedData);
   };
 
   return (
@@ -92,7 +90,7 @@ export function UpdateUserDataForm(): ReactElement {
 
         <div className="form__group right">
           <button
-            disabled={isLoading}
+            disabled={updateUser.isLoading}
             type="submit"
             className="btn btn--small btn--green"
           >

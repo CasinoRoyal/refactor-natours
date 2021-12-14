@@ -2,8 +2,7 @@ import { ReactElement, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppDispatch, useAppSelector, selectUser } from '../store/store';
-import { signIn, signUp } from '../store/user.reducer';
+import { useSignUp, useSignIn } from '../hooks/use-auth';
 import { loginSchema, signupSchema } from '../../shared-kernel/schemas';
 import { RegistrationData, AuthenticateData } from '../../domains/user.entity';
 
@@ -15,9 +14,9 @@ export type AuthFormData = {
 };
 
 export function AuthForm(): ReactElement {
-  const { isLoading } = useAppSelector(selectUser);
+  const signUpMutation = useSignUp();
+  const signInMutation = useSignIn();
   const { pathname } = useLocation();
-  const dispatch = useAppDispatch();
   const chosenProcedure = pathname.split('/')[2];
   const isSignup = chosenProcedure === 'signup' ? true : false;
   const {
@@ -40,9 +39,9 @@ export function AuthForm(): ReactElement {
 
   async function onSubmitChange(data: RegistrationData | AuthenticateData) {
     if ('name' in data && isSignup) {
-      await dispatch(signUp(data));
+      await signUpMutation.mutate(data);
     } else {
-      await dispatch(signIn(data));
+      await signInMutation.mutate(data);
     }
   }
 
@@ -115,7 +114,11 @@ export function AuthForm(): ReactElement {
       )}
 
       <div className="form__group">
-        <button disabled={isLoading} type="submit" className="btn btn--green">
+        <button
+          disabled={signInMutation.isLoading || signUpMutation.isLoading}
+          type="submit"
+          className="btn btn--green"
+        >
           {isSignup ? 'Sign up' : 'Login'}
         </button>
       </div>

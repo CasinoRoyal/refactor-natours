@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 import { Tour } from '../../domains/tour.entity';
+import './cta.css';
 
-type TourCTAPropsType = Pick<Tour, 'images' | 'duration'>;
+type TourCtaPropsType = Pick<Tour, 'images' | 'duration'>;
 
-export function CTA({ images, duration }: TourCTAPropsType): ReactElement {
+export function Cta({ images, duration }: TourCtaPropsType): ReactElement {
   const daysDurationText =
     duration > 1 ? `${duration} days` : `${duration} day`;
   return (

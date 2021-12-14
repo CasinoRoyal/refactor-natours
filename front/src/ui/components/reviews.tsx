@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Review } from '../../domains/review.entity';
+import { useCheckAuth } from '../hooks/use-auth';
 import { ReviewCard } from './review-card';
 import { ReviewFeedback } from './review-feedback';
-import { Review } from '../../domains/review.entity';
-import { useAppSelector, selectUser } from '../store/store';
+import './reviews.css';
 
 type ReviewsPropsType = {
   reviews: Review[];
@@ -11,7 +12,7 @@ type ReviewsPropsType = {
 
 export function Reviews({ reviews }: ReviewsPropsType): ReactElement {
   const { pathname } = useLocation();
-  const { data } = useAppSelector(selectUser);
+  const { data: user } = useCheckAuth();
   const haveReviews = reviews.length > 0;
 
   const renderReviewCards = () => {
@@ -33,7 +34,7 @@ export function Reviews({ reviews }: ReviewsPropsType): ReactElement {
       <div className="reviews">
         {haveReviews ? renderReviewCards() : renderEmptyReviewMessage()}
       </div>
-      {data.isAuth ? (
+      {user ? (
         <ReviewFeedback />
       ) : (
         <div className="reviews-box">

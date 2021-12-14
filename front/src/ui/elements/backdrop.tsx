@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
+import './backdrop.css';
 
 type BackdropProps = {
   children?: ReactNode;

@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 import { Cards } from '../components/cards';
-import { useTour } from '../hooks/use-tour';
+import { useTours } from '../hooks/use-tours';
 import { Loader } from '../elements/loader';
 
 export function Catalog(): ReactElement {
-  const { data, isLoading } = useTour();
+  const { data, isLoading } = useTours();
 
-  if (isLoading) return <Loader />;
+  if (!data || isLoading) return <Loader />;
 
-  return <Cards cards={data.tours} />;
+  return <Cards cards={data} />;
 }

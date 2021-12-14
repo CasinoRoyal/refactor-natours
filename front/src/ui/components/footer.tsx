@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import './footer.css';
 
 export function Footer(): ReactElement {
   return (

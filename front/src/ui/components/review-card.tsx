@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Review } from '../../domains/review.entity';
 import { ReactComponent as SvgSprite } from './icons.svg';
+import './review-card.css';
 
 type ReviewPropsType = {
   review: Review;

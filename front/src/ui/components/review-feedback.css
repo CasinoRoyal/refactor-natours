@@ -1,0 +1,57 @@
+.review-feedback {
+  padding: 2rem;
+}
+
+.review-feedback form {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-feedback form > *:not(:last-child) {
+  margin-bottom: 1.8rem;
+}
+
+.review-feedback textarea {
+  border: none;
+  outline: 1px solid #111;
+  padding: 20px;
+  font-size: 20px;
+  background: rgba(255,255,255, 0.8);
+  color: #0e0e0e;
+  border-radius: 5px;
+  resize: none;
+  min-height: 150px;
+}
+
+.review-feedback textarea::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.review-feedback textarea:focus{
+  outline: 1px solid #55c57a;
+}
+
+.review-feedback button {
+  background-color: #111;
+  color: #fff;
+  width: 25%;
+  align-self: end;
+}
+
+.review-rating {
+  font-size: 1.5rem;
+  border: none;
+}
+
+.review-rating legend {
+  margin-bottom: 1rem;
+}
+
+.review-rating label {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.review-rating input {
+  margin-right: 2.5rem;
+}

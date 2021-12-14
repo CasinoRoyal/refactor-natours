@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import './nav.css';
 
 export function Nav(): ReactElement {
   return (

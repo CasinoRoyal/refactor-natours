@@ -1,18 +1,16 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAppSelector, selectUser } from '../store/store';
-import { signOut } from '../store/user.reducer';
-import { useAppDispatch } from '../store/store';
+import { useSignOut } from '../hooks/use-auth';
+import { authContext } from '../context/auth';
+import './user-bar.css';
 
 export function UserBar(): ReactElement {
   const { pathname } = useLocation();
-  const {
-    data: { user },
-  } = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
+  const { data: user } = useContext(authContext);
+  const signOutMutation = useSignOut();
 
   function handleButtonClick() {
-    dispatch(signOut());
+    signOutMutation.mutate();
   }
 
   const renderTemplate = user ? (

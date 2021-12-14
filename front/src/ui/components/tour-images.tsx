@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Tour } from '../../domains/tour.entity';
+import './tour-images.css';
 
 type TourImagesType = Pick<Tour, 'images' | 'name'>;
 

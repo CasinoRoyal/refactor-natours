@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Tour } from '../../domains/tour.entity';
+import './card.css';
 
 type CardProps = { cardData: Tour };
 

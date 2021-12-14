@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Guides } from './tour-guides';
 import { Tour } from '../../domains/tour.entity';
+import './tour-description.css';
 
 type TourDescriptionType = Pick<
   Tour,

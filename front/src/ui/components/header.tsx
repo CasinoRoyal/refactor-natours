@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Nav } from './nav';
 import { UserBar } from './user-bar';
+import './header.css';
 
 export function Header(): ReactElement {
   return (

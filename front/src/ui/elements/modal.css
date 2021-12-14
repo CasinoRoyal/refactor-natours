@@ -1,0 +1,14 @@
+.modal {
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255,255,255, 0.8);
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(1,1,1, 0.5);
+}
+
+.portal {
+  z-index: 1000;
+}

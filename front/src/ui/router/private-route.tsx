@@ -1,6 +1,6 @@
 import { ComponentType, ReactElement } from 'react';
 import { Redirect, Route, useLocation } from 'react-router-dom';
-import { useAppSelector, selectUser } from '../store/store';
+import { useCheckAuth } from '../hooks/use-auth';
 
 type PrivateRouteProps = {
   component: ComponentType;
@@ -14,9 +14,9 @@ export function PrivateRoute({
   exact,
 }: PrivateRouteProps): ReactElement {
   const { pathname } = useLocation();
-  const { data } = useAppSelector(selectUser);
+  const { data: user } = useCheckAuth();
 
-  if (!data.user) {
+  if (!user) {
     return (
       <Redirect to={{ pathname: '/auth/login', state: { path: pathname } }} />
     );

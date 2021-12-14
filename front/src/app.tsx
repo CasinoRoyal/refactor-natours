@@ -1,20 +1,15 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useContext } from 'react';
 import { AppRouter } from './ui/router/router';
 import { Header } from './ui/components/header';
 import { Footer } from './ui/components/footer';
 import { Loader } from './ui/elements/loader';
-import { checkUser } from './ui/store/user.reducer';
-import { useAppSelector, useAppDispatch, selectUser } from './ui/store/store';
+import { authContext } from './ui/context/auth';
+import './app.css';
 
 export function App(): ReactElement {
-  const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector(selectUser);
+  const { isLoading, error } = useContext(authContext);
 
-  useEffect(() => {
-    dispatch(checkUser());
-  }, []);
-
-  if (isLoading) return <Loader />;
+  if (isLoading && !error) return <Loader />;
 
   return (
     <>

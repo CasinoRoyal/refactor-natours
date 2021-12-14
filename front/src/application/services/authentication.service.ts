@@ -26,8 +26,13 @@ export function useAuthentication(): AuthenticationUseCase {
   }
 
   async function checkAuth(): Promise<User> {
-    const response = await userStorage.checkAuth();
-    return response;
+    try {
+      const response = await userStorage.checkAuth();
+      return response;
+    } catch (err) {
+      console.log('add logger');
+      throw err;
+    }
   }
 
   return {

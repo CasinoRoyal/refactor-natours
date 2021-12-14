@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Backdrop } from './backdrop';
 import { Portal } from './portal';
+import './modal.css';
 
 type ModalProps = {
   children: ReactNode;

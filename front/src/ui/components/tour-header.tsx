@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Tour } from '../../domains/tour.entity';
+import './tour-header.css';
 
 type TourHeaderType = Pick<
   Tour,
