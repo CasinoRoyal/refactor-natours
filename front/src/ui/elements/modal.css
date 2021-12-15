@@ -9,6 +9,26 @@
   box-shadow: 0 5px 10px rgba(1,1,1, 0.5);
 }
 
+.modal__header {
+  display: flex;
+  padding: 0.3rem;
+}
+
+.modal__close-btn {
+  font-size: 1.7rem;
+  padding: 0.4rem;
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+  color: #111;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal__close-btn:hover {
+  color: #28b487;
+}
+
 .portal {
   z-index: 1000;
 }
