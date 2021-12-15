@@ -28,7 +28,7 @@ export function Card({ cardData }: CardProps): ReactElement {
         <div className="card__picture">
           <div className="card__picture-overlay">&nbsp;</div>
           <img
-            src={`img/tours/${imageCover}`}
+            src={`/img/tours/${imageCover}`}
             alt={name}
             className="card__picture-img"
           />

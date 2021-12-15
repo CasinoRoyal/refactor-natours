@@ -30,7 +30,7 @@ export function ReviewCard({ review }: ReviewPropsType): ReactElement {
     <div className="reviews__card">
       <div className="reviews__avatar">
         <img
-          src={`img/users/${review.user.photo}`}
+          src={`/img/users/${review.user.photo}`}
           alt={`${review.user.name}`}
           className="reviews__avatar-img"
         />

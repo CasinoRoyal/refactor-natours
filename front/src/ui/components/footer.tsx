@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import './footer.css';
 
 export function Footer(): ReactElement {
   return (
     <div className="footer">
-      <div className="footer__logo">
-        <img src="img/logo-green.png" alt="Natours logo" />
-      </div>
+      <Link to="/" className="footer__logo">
+        <img src="/img/logo-green.png" alt="Natours logo" />
+      </Link>
       <ul className="footer__nav">
         <li>
           <a href="/">About us</a>

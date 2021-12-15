@@ -21,7 +21,7 @@ export function UserBar(): ReactElement {
 
       <Link to="/profile" className="nav__el">
         <img
-          src={`img/users/${user.photo}`}
+          src={`/img/users/${user.photo}`}
           alt="User"
           className="nav__user-img"
         />

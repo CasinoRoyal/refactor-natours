@@ -15,7 +15,7 @@ export function Guides({ guides }: GuidesType): ReactElement {
         return (
           <div key={idx} className="overview-box__detail">
             <img
-              src={`img/users/${photo}`}
+              src={`/img/users/${photo}`}
               alt={guideLabel}
               className="overview-box__img"
             />
