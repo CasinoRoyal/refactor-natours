@@ -21,7 +21,7 @@ export function ReviewFeedback() {
         </button>
       </div>
 
-      <Modal isOpened={showModal} onClose={handleClose}>
+      <Modal isOpened={showModal} onClose={handleClose} withHeader>
         <div className="review-feedback">
           <form>
             <h3 className="heading-secondary">Share your vibes with us!</h3>

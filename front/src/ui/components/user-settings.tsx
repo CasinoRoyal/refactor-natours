@@ -1,8 +1,6 @@
 import { ReactElement } from 'react';
 import { UpdateUserDataForm } from './update-user-form';
 import './user-settings.css';
-// import { ChangeUserData } from './change-user-data';
-// import { ChangePassword } from './change-password';
 
 export function UserSettings(): ReactElement {
   return (
