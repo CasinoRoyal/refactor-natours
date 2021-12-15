@@ -1,20 +1,33 @@
+import { loadStripe } from '@stripe/stripe-js';
 import { http } from '../http/http.adapter';
 import { IPayment } from '../../application/ports/out/payment.port';
 
+type PaymentSession = {
+  status: string;
+  session: any;
+};
+
 export const usePaymentService = (): IPayment => {
-  const url = `/webhook-checkout`;
+  const url = '/booking/checkout-session';
 
   return {
-    async pay(totalPrice: number): Promise<boolean> {
+    async pay(itemId: string): Promise<void> {
       try {
-        await http<boolean, number>(url, {
+        const stripe = await loadStripe(
+          'pk_test_65MqCGHOGKKpcDMgirCqofLK00OhMbtFmT',
+        );
+        const { data } = await http<PaymentSession>(`${url}/${itemId}`, {
           method: 'GET',
-          body: { totalPrice },
+          withCredentials: true,
         });
-        return true;
+
+        if (stripe) {
+          await stripe.redirectToCheckout({ sessionId: data.session.id });
+        }
+
+        throw new Error('Transaction session error');
       } catch (e) {
-        console.log('Pay error');
-        return false;
+        throw new Error('Pay error');
       }
     },
   };

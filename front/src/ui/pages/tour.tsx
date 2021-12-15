@@ -40,7 +40,7 @@ export function Tour(): ReactElement {
 
       <Reviews reviews={data.reviews} />
 
-      <Cta images={data.images} duration={data.duration} />
+      <Cta id={data.id} images={data.images} duration={data.duration} />
     </>
   );
 }

@@ -1,3 +1,3 @@
 export interface IPayment {
-  pay(tourPrice: number): Promise<boolean>;
+  pay(itemId: string): Promise<void>;
 }
