@@ -5,12 +5,11 @@ import {
   RegistrationData,
   User,
 } from '../../domains/user.entity';
-import { ErrorMessage } from '../../shared-kernel/types';
 
 export function useSignIn() {
   const queryClient = useQueryClient();
   const { auth } = useAuthentication();
-  const signUpMutation = useMutation<User, ErrorMessage, AuthenticateData>(
+  const signUpMutation = useMutation<User, Error, AuthenticateData>(
     (signInData) => auth(signInData),
     {
       onSuccess: () => queryClient.invalidateQueries('authentication'),
@@ -23,7 +22,7 @@ export function useSignIn() {
 export function useSignUp() {
   const queryClient = useQueryClient();
   const { registrate } = useAuthentication();
-  const signInMutation = useMutation<User, ErrorMessage, RegistrationData>(
+  const signInMutation = useMutation<User, Error, RegistrationData>(
     (signUpData) => registrate(signUpData),
     {
       onSuccess: () => queryClient.invalidateQueries('authentication'),
@@ -36,7 +35,7 @@ export function useSignUp() {
 export function useSignOut() {
   const queryClient = useQueryClient();
   const { exit } = useAuthentication();
-  const signOutMutation = useMutation<void, ErrorMessage>(() => exit(), {
+  const signOutMutation = useMutation<void, Error>(() => exit(), {
     onSuccess: () => queryClient.invalidateQueries('authentication'),
   });
 
@@ -45,10 +44,12 @@ export function useSignOut() {
 
 export function useCheckAuth() {
   const { checkAuth } = useAuthentication();
-  const { isLoading, error, data } = useQuery<User, ErrorMessage>(
+  const { isLoading, error, data } = useQuery<User, Error>(
     ['authentication', 'check-auth'],
     () => checkAuth(),
+    {
+      onError: (error) => console.log(error),
+    },
   );
-
   return { isLoading, error, data };
 }

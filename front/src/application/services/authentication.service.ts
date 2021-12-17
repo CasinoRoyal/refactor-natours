@@ -30,7 +30,6 @@ export function useAuthentication(): AuthenticationUseCase {
       const response = await userStorage.checkAuth();
       return response;
     } catch (err) {
-      console.log('add logger');
       throw err;
     }
   }

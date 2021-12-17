@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSignUp, useSignIn } from '../hooks/use-auth';
 import { loginSchema, signupSchema } from '../../shared-kernel/schemas';
 import { RegistrationData, AuthenticateData } from '../../domains/user.entity';
+import { notifier } from '../../adapters/notifier/notifier.adapter';
 
 export type AuthFormData = {
   email: string;
@@ -32,10 +33,14 @@ export function AuthForm(): ReactElement {
     return () => reset();
   }, []);
 
-  /**
-   * Add notifier */
-
-  console.log(errors);
+  useEffect(() => {
+    if (errors) {
+      for (const errorTitle in errors) {
+        const errorsObject = errors as any;
+        notifier().error(errorsObject[errorTitle].message);
+      }
+    }
+  }, [errors]);
 
   async function onSubmitChange(data: RegistrationData | AuthenticateData) {
     if ('name' in data && isSignup) {

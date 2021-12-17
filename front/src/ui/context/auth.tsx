@@ -5,7 +5,7 @@ import { User } from '../../domains/user.entity';
 type AuthContext = {
   data: User | undefined;
   isLoading: boolean;
-  error: string | null;
+  error: string | Error | null;
 };
 
 const initialState = {
