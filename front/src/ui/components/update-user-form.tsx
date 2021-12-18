@@ -1,9 +1,10 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userDataSchema } from '../../shared-kernel/schemas';
 import { shallowCompare } from '../../shared-kernel/helpers';
 import { ChangeUserData } from '../../domains/user.entity';
+import { notifier } from '../../adapters/notifier/notifier.adapter';
 import { useCheckAuth } from '../hooks/use-auth';
 import { useUserUpdate } from '../hooks/use-user';
 
@@ -19,13 +20,28 @@ export function UpdateUserDataForm(): ReactElement {
     resolver: yupResolver(userDataSchema),
   });
 
-  /**
-   * Add notifier */
-  console.log(errors);
+  useEffect(() => {
+    if (updateUser.isSuccess) {
+      notifier().success('Your data was successfully updated');
+    }
+
+    if (updateUser.isError) {
+      notifier().warn('Unpredictable error was occurred. Try again');
+    }
+  }, [updateUser.isSuccess, updateUser.isError]);
+
+  useEffect(() => {
+    if (errors) {
+      for (const errorTitle in errors) {
+        const errorsObject = errors as any;
+        notifier().error(errorsObject[errorTitle].message);
+      }
+    }
+  }, [errors]);
 
   const handlerUserDataSubmit = (changedData: ChangeUserData): void => {
     if (!user) {
-      console.log('Error');
+      notifier().error('You should be authorized');
       return;
     }
 

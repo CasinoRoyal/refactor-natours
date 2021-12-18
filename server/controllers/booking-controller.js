@@ -11,8 +11,8 @@ exports.getCheckoutSession = catchAsyncError(async (req, res, next) => {
   const tour = await Tour.findById(req.params.tourId);
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `${req.protocol}://${process.env.CLIENT_HOST}/profile/my-tours`,
-    cancel_url: `${req.protocol}://${process.env.CLIENT_HOST}/${req.params.tourId}`,
+    success_url: `${process.env.CLIENT_HOST}/profile/my-tours`,
+    cancel_url: `${process.env.CLIENT_HOST}/${req.params.tourId}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
     line_items: [
