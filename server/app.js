@@ -14,6 +14,7 @@ const userRouter = require('./routes/user-routers');
 const reviewRouter = require('./routes/review-routes');
 const bookingRouter = require('./routes/booking-routes');
 const AppError = require('./utils/app-error');
+const generateQrCode = require('./utils/qr-generator');
 const handleError = require('./controllers/error-controller');
 const { webhookCheckout } = require('./controllers/booking-controller');
 

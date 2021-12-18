@@ -4,15 +4,15 @@ const User = require('../models/user-model');
 const Booking = require('../models/booking-model');
 const catchAsyncError = require('../utils/catch-async-error');
 const AppError = require('../utils/app-error');
+const generateQrCode = require('../utils/qr-generator');
 const factory = require('./handler-factory');
 
 exports.getCheckoutSession = catchAsyncError(async (req, res, next) => {
   const tour = await Tour.findById(req.params.tourId);
-
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `${req.protocol}://${req.get('host')}/my-tours`,
-    cancel_url: `${req.protocol}://${req.get('host')}/${tour.slug}`,
+    success_url: `${req.protocol}://${process.env.CLIENT_HOST}/profile/my-tours`,
+    cancel_url: `${req.protocol}://${process.env.CLIENT_HOST}/${req.params.tourId}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
     line_items: [
@@ -34,10 +34,18 @@ exports.getCheckoutSession = catchAsyncError(async (req, res, next) => {
 });
 
 const createBookingCheckout = async session => {
-  const tour = session.client_reference_id;
-  const user = (await User.findOne({ email: session.customer_email })).id;
-  const price = session.display_items[0].amount / 100;
-  await Booking.create({ tour, user, price });
+  try {
+    const tour = session.client_reference_id;
+    const user = (await User.findOne({ email: session.customer_email })).id;
+    const price = session.display_items[0].amount / 100;
+    const code = generateQrCode({
+      tour, user, price
+    });
+    const book = await Booking.create({ tour, user, price, code });
+    console.log('BOOK ', book)
+  } catch(e) {
+    console.log(e);
+  }
 };
 
 exports.webhookCheckout = (req, res, next) => {
