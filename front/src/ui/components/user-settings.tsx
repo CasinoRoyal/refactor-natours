@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { UpdateUserDataForm } from './update-user-form';
 import './user-settings.css';
 
@@ -9,20 +10,20 @@ export function UserSettings(): ReactElement {
       <nav className="user-view__menu">
         <ul className="side-nav">
           <li className="side-nav--active">
-            <a href="/nowhere">
+            <Link to="/profile">
               <svg>
                 <use xlinkHref="img/icons.svg#icon-settings" />
               </svg>
               Settings
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/nowhere">
+            <Link to="/profile/my-tours">
               <svg>
                 <use xlinkHref="img/icons.svg#icon-briefcase" />
               </svg>
               My bookings
-            </a>
+            </Link>
           </li>
           <li>
             <a href="/nowhere">

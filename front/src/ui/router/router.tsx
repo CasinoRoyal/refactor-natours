@@ -7,6 +7,7 @@ import { Catalog } from '../pages/catalog';
 import { NotFound } from '../pages/not-found';
 import { Auth } from '../pages/authentication';
 import { Profile } from '../pages/profile';
+import { MyTours } from '../pages/my-tours';
 
 export function AppRouter(): ReactElement {
   return (
@@ -16,6 +17,7 @@ export function AppRouter(): ReactElement {
       <Route path="/tour/:tourId" component={Tour} exact />
       <Route path="/auth/:auth" component={Auth} exact />
       <PrivateRoute path="/profile" component={Profile} exact />
+      <PrivateRoute path="/profile/my-tours" component={MyTours} exact />
       <Route path="*" component={NotFound} />
     </Switch>
   );
