@@ -40,5 +40,15 @@ process.on('SIGTERM', () => {
 
   server.close(() => {
     console.log('process terminated');
+    process.exit(1);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('Sigint received');
+
+  server.close(() => {
+    console.log('process terminated');
+    process.exit(1);
   });
 });
