@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/user-model');
 const catchAsyncError = require('./../utils/catch-async-error');
 const AppError = require('./../utils/app-error');
-const Email = require('./../utils/emails');
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -196,7 +195,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   `;
 
   try {  
-    new Email(user, resetUrl).sendPasswordReset()
+    // new Email(user, resetUrl).sendPasswordReset()
     res.status(200).json({
       status: 'success',
       message: 'Token was send to user email'
