@@ -43,6 +43,5 @@ function httpFactory(baseURL: string): Http {
   };
 }
 
-const tempBaseUrl = 'http://localhost:3001/api/v1';
-// const tempBaseUrl = 'https://natours-adventure.herokuapp.com/api/v1';
-export const { http } = httpFactory(tempBaseUrl);
+const baseUrl = process.env['REACT_APP_BASE_URL'] as string;
+export const { http } = httpFactory(baseUrl);
