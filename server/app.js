@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 
@@ -20,22 +21,16 @@ const { webhookCheckout } = require('./controllers/booking-controller');
 
 const app = express();
 
-app.enable('trust proxy');
+app.enable('trust proxy', 1);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE,UPDATE,OPTIONS');
-  res.header(
-    'Access-Control-Allow-Headers', 
-    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Authorization'
-  );
+app.use(cors({
+  credentials: true,
+  origin: [process.env.CLIENT_HOST]
+}));
 
-  next();
-});
 app.options('*', function (req,res) { res.sendStatus(200); });
 
 app.use(helmet());
